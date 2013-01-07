@@ -1,35 +1,35 @@
-## In-App Purchasing
+## Compras dentro do aplicativo
 
-In-App Purchasing (IAP) is how your app can make money.  The OUYA Developer Kit (ODK) is designed to be both easy to use and secure.
+Compras dentro do aplicativo (In-App Purchasing -IAP) é como seu app pode fazer dinheiro.  O OUYA Developer Kit (ODK) é designado para ser tanto fácil quanto seguro.
 
-#### Definitions
+#### Definições
 
-**Product** -- this is what is purchased by the user.  It has three attributes:
-* *Identifier* -- a developer-facing identifier (unique per developer)
-* *Price* -- the cost of the product
-* *Name* -- the user-facing name
+**Produto** -- Isso é o que é comprado pelo usuário.  Ele tem três atributos:
+* *Identificador* -- um identificador mostrado para o desenvolvedor (único por desenvolvedor)
+* *Preço* -- O custo do produto
+* *Nome* -- o nome mostrado para o usuário
 
-**Purchasable** -- identifies a product when making purchases
+**Comprável** -- identifica um produto quando fazendo compras.
 
-**Receipt** -- information about a prior purchase. it has three attributes:
-* *Product ID* -- the product identifier
-* *Price* -- the amount that was paid
-* *PurchaseDate* -- when the purchase was made
+**Recibo** -- Informação sobre uma compra prévia. Ele tem três atributos:
+* *ID do Produto* -- o identificador do produto
+* *Preço* -- a quantia que foi paga
+* *Data da compra* -- quando a compra foi feita
 
-**Entitlements** --  a product which can be purchased only once and remains available to the game upon reinstallation
+**Direitos** --  um produto que pode ser comprado apenas uma vez e contiua disponível ao jogo mesmo após uma reinstalação
 
-**Consumable** -- a product which can be purchased repeatedly
+**Consumível** -- um produto que pode ser comprado várias vezes
 
-**Subscription** -- a product which will be purchased automatically on a set schedule [not yet implemented]
+**Assinatura** -- um produto que irá ser comprado automaticamente num certo agendamento [não implementado ainda]
 
-#### Initializing the ODK
+#### Iniciando a ODK
 
-All IAP functionality goes through the **OuyaFacade** object.  One of these objects should be created at the beginning of the application and used for all IAP requests.
+Toda funcionalidade do IAP passa pelo objeto **OuyaFacade**.  Um desses objetos deve ser criado no começo da aplicação e ser usada para todos os pedidos de IAP.
 ```java
-	// Your developer id can be found in the Developer Portal
+	// Seu identificador de desenvolvedor (developer id) pode ser encontrado no Portal de Desenvolvedores
 	public static final String DEVELOPER_ID = "00000000-0000-0000-0000-000000000000";
 
-	// Create an OuyaFacade
+	// Cria um OuyaFacade
 	private OuyaFacade OuyaFacade = new OuyaFacade();
 
 	@Override
@@ -38,7 +38,7 @@ All IAP functionality goes through the **OuyaFacade** object.  One of these obje
 		super.onCreate(savedInstanceState);
 	}
 ```
-Of course, when your application is finished, it is polite to inform the **OuyaFacade** as well:
+Claro, quando seu aplicativo terminar, é bom informar o **OuyaFacade** sobre isso:
 ```java
 	@Override
 	protected void onDestroy() {
@@ -46,83 +46,81 @@ Of course, when your application is finished, it is polite to inform the **OuyaF
 		super.onDestroy();
 	}
 ```
-Now we are ready for some real action! 
+Agora estamos prontos pra mais ação!
 
-#### Creating Products
+#### Criando produtos
+Para os usuários te darem dinheiro, você precisa primeiro criar produtos pra eles comprarem. Isso é feito pelo website do OUYA via [Portal de Desenvolvedores](https://devs.ouya.tv/developers).
+Depois de fazer o login, clique no menu **Produtos** e depois no link **Novo Produto**. Isso vai levar você até a página que você pode entrar o ID do produto, preço e nome.
 
-In order for users to give you money, you must first create products for them to buy.  This is done on the OUYA website via the [Developer Portal](https://devs.ouya.tv/developers).
-After logging in, click on the **Products** menu and then the **New Product** link.  This will take you to a page where you can enter the product ID, price and name.
+#### Pegando informações do produto
 
-#### Getting Product Information
-
-Once the products have been created, you may want your application to query the servers for the current name and price.  This is done by requesting a product list, where products that you are interested in are specified by product ID.
+Uma vez que os produtos forem criados, você pode querer que seu aplicativo pergunte ao servidor os atuais nomes e preços. Isso é feito pedindo uma lista de produtos, onde produtos que você estiver interessado podem ser especificiados pela identificação do produto (Product ID).
 ```java
-	// This is the set of product IDs which our app knows about
+	// Essa é a lista de identificações dos produtos que nosso app sabe sobre.
 	public static final List<Purchasable> PRODUCT_ID_LIST =
 		Arrays.asList(new Purchasable("sharp_sword"));
 ```
-Since this request has to travel across the Internet to the OUYA servers, the response will be returned via a callback mechanism.  It is up to your application to create an appropriate listener object.  Listeners extend the **OuyaResponseListener** and have three callback methods:
+Como esse pedido tem que percorrer pela internet para os servidores do OUYA, a resposta vai ser retornada por um mecanismo de callback. Cabe ao seu aplicativo criar um objeto ouvinte apropriado (listener). Ouvintes podem extender **OuyaResponseListener** e terem três métodos de callback:
 
-* **onSuccess**	-- the request succeeded and the requested data is passed back
-* **onFailure**	-- the request failed and the error is passed back
-* **onCancel**	-- the user cancelled the request (for example, they hit "Cancel" when prompted for a password)
+* **onSuccess**	-- o pedido foi sucedido e os dados são passados
+* **onFailure**	-- o pedido falhou e o erro é passado
+* **onCancel**	-- o usuário cancelou o pedido (por exemplo, ele apertou "Cancelar" quando solicitado a senha)
 
-Now we will create our own listener!  In this example, we are extending the **CancelIgnoringOuyaResponseListener** which ignores cancels. Therefore, we only need to provide **onSuccess** and **onFailure** methods:
+Agora iremos criar nosso próprio ouvinte! Nesse exemplo, nós estamos extendendo a **CancelIgnoringOuyaResponseListener** que ignora canelamentos. Dessa maneira, nós apenas fornecemos os métodos **onSuccess** e **onFailure**:
 ```java
 	OuyaResponseListener<ArrayList<Product>> productListListener =
 		new CancelIgnoringOuyaResponseListener<ArrayList<Product>>() {
 			@Override
 			public void onSuccess(ArrayList<Product> products) {
 				for(Product p : products) {
-					Log.d("Product", p.getName() + " costs " + p.getPriceInCents());
+					Log.d("Produto", p.getName() + " custa " + p.getPriceInCents());
 				}
 			}
 
 			@Override
 			public void onFailure(int errorCode, String errorMessage) {
-				Log.d("Error", errorMessage);
+				Log.d("Erro", errorMessage);
 			}
 		};
 ```
-So, how do we actually get the data we want? By making a request via **OuyaFacade**:
+Então, como nós pegamos os dados que queremos? Fazendo um pedido via **OuyaFacade**:
 ```java
 	OuyaFacade.requestProductList(PRODUCT_ID_LIST, productListListener);
 ```
-So easy!
+Tão fácil!
 
-#### Making a Purchase
+#### Fazendo uma compra
 
-Once users experience your application, they will become super addicted and eagerly buy all the products you offer!  To make that happen, we must first create a new listener:
+Uma vez que os jogadores experimentarem seu aplicativo, eles ficam super viciados e avidamente compram todos os produtos que você oferecer! Pra fazeer isso aconteer, nós primeiro precisamos criar um ouvinte:
 ```java
 	CancelIgnoringOuyaResponseListener<Product> purchaseListener =
 		new CancelIgnoringOuyaResponseListener<Product>() {
 			@Override
 			public void onSuccess(Product product) {
-				Log.d("Purchase", "Congrats you bought: " + product.getName());
+				Log.d("Compra", "Parabens voce comprou: " + product.getName());
 			}
 
 			@Override
 			public void onFailure(int errorCode, String errorMessage) {
-				Log.d("Error", errorMessage);
+				Log.d("Erro", errorMessage);
 			}
 		};
 ```
-With that listener defined, making the purchase is just one line:
+Com esse ouvinte definido, nós fazemos a compra com apenas uma linha:
 ```java
 	Purchasable productToBuy = PRODUCT_ID_LIST.get(0);
 	OuyaFacade.requestPurchase(productToBuy, purchaseListener);
 ```
-Now we wait for the money to start pouring in...
+Agora é só esperar o dinheiro começar a entrar...
 
-#### Querying Purchase Receipts
+#### Consultando recibos de compras
 
-At this point, we can get information on products and purchase them, but what if the user purchased something in a previous play session?  The ODK provides a way to list purchase receipts. Yes, this will require another listener object!
+Nesse ponto, nós podemos pegar informação dos produtos e comprá-los, mas e se o usuário comprou algo numa sessão anterior? O ODK disponibiliza um modo para listar todos os recibos de compras. Sim, nós precisaremos de outro objeto ouvinte!
+_Por favor note que apenas produtos que são direitos serão devolvidos. Isso é para evitar a re-atribuição de compras de consumíveis que os jogadores já consumiram._
 
-_Please not that only products that are entitlements are returned. This is to avoid re-awarding players consumable product purchases that have already been consumed._
+Por questões de segurança, os recibos são retornados criptografados e devem ser decifrados dentro do próprio aplicativo. Para ajudar com isso, você pode usar o método **decryptReceiptResponse** do **OuyaEncryptionHelper**.
 
-For security reasons, the receipts are returned encrypted and must be decrypted within the application itself.  To assist with this, you can use the **OuyaEncryptionHelper**'s **decryptReceiptResponse** method.
-
-Let us take a look at our listener:
+Vamos dar uma olhada no nosso ouvinte:
 ```java
 	CancelIgnoringOuyaResponseListener<String> receiptListListener =
 		new CancelIgnoringOuyaResponseListener<String>() {
@@ -136,26 +134,25 @@ Let us take a look at our listener:
 					throw new RuntimeException(e);
 				}
 				for (Receipt r : receipts) {
-					Log.d("Receipt", "You have purchased: " + r.getIdentifier())
+					Log.d("Recibo", "Voce comprou: " + r.getIdentifier())
 				}
 			}
 
 			@Override
 			public void onFailure(int errorCode, String errorMessage) {
-				Log.d("Error", errorMessage);
+				Log.d("Erro", errorMessage);
 			}
 		};
 ```
-As usual, making the actual request is quite simple:
+Como de costume, fazer um pedido é bem simples:
 ```java
 	OuyaFacade.requestReceipts(receiptListListener);
 ```
-The receipt decryption happens inside the application to help prevent hacking.  By moving the decryption into each application there is no "one piece of code" a hacker can attack to break encryption for all applications.  In the future, we will encourage developers to avoid using the **decryptReceiptResponse** method. They will need to move the method into their application, and *perturb* what it does slightly (changing for-loops to while-loops, and so forth) to help make things even more secure.
-Currently, the ODK is under heavy development, so the helper method will assist in insulating you from our "under-the-hood" changes.
+O deciframento do recibo ocorre dentro do aplicativo para ajudar a previnir hackers. Movendo o deciframento pra cada aplicativo não há nenhum "pedaço de códdigo" que um hacker possa atacar pra quebrar a criptografia de todos aplicativos. No futuro, nós iremos encorajar desenvolvedores de usar o método **decryptReceiptResponde**. Eles irão precisar mover o método para seus próprios aplicativos, e *perturbar* o que ele faz superficialmente (trocar for-loops para while-loops e assim vai) para ajudar a deixar as coisas ainda mais seguras.
+Atualmente, a ODK está sobre desenvolvimento pesado, então o método para ajuda vai auxiliar a isolar você das mudanças "de baixo do capô".
 
-#### Identifying the User
-
-If your application talks to an external server, it is often necessary to get a unique identifier for the current user (for example, to store high scores on a website).  This is done in the normal pattern of creating a listener:
+#### Identificando o usuário
+Se o seu aplicativo conversa com um servidor externo, é constantemente necessário ter um identificador único para o usuário atual (por exemplo, pra guardar uma tabela de pontuação em um site), Isso é feito em um padrão normal de criar um ouvinte:
 ```java
 	CancelIgnoringOuyaResponseListener<String> gamerUuidListener =
 		new CancelIgnoringOuyaResponseListener<String>() {
@@ -166,12 +163,12 @@ If your application talks to an external server, it is often necessary to get a 
 
 			@Override
 			public void onFailure(int errorCode, String errorMessage) {
-				Log.d("Error", errorMessage);
+				Log.d("Erro", errorMessage);
 			}
 		};
 ```
-Then making the request:
+Então fazendo um pedido:
 ```java
 	OuyaFacade.requestGamerUuid(gamerUuidListener);
 ```
-**Note**: These game UUIDs are different across developers; two apps by different developers which query the UUID of the same user will get different results.
+**Nota**: Esses UUIDs de jogo são diferente para cada desenvolvedor; dois aplicativos por desenvolvedores diferentes que pedirem o UUID do mesmo usuário vão receber resultados diferentes.

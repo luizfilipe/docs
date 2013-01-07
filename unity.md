@@ -1,24 +1,24 @@
 ## Unity Game Engine
 
-### Audience
-The OUYA SDK Unity Package is targeted towards Unity developers intending to publish to the OUYA platform and allows testing on Android devices.
+### Audiencia
+O OUYA SDK Unity Package tem como alvo os desenvolvedores Unity que planejam publicar jogos para a plataforma OUYA e permite testes em dispositivos android.
 
-### Authors
+### Autores
 Tim Graupmann (tim@tagenigma.com)
 
-### Supported Platforms
-The OUYA SDK Unity Package supports publishing from Mac and Windows.
+### Plataformas Suportadas
+O OUYA SDK Unity Package suporta publicação apartir de Mac e Windows.
 
-### Introduction
-Welcome to the OUYA Unity developers club. This document will provide an overview for setting up the example Unity application to publish on the OUYA platform.
+### Introdução
+Bem vindo ao lube de desenvolvedores de Unity no OUYA. Esse documento irá fornecer uma vista de como configurar o aplicativo de exemplo do Unity e publicá-lo para a plataforma OUYA.
 
-### Import Package
-Part of receiving this document, you received OuyaSDK.unitypackage which can be imported into the Unity IDE on Mac and Windows. Start with a New Project, and Choose Assets->Import Package->Custom Package from the menu bar.  Browse to the OuyaSDK.unitypackage and import all files.
+### Pacote Import
+A parte de recebendo esse documento, você recebeu OuyaSDK.unitypackage que pode ser importado para a Unity IDE no Mac e no Windows. Comece com um New Project, e Choose Assets->Import Package->Custom Package from the menu bat. Procure o OuyaSDK.unitypackage e adicione todos os arquivos.
 
 ![Import Package](https://d31pno3ktcq63f.cloudfront.net/assets/unity/01_ImportPackage.jpg)
 
-### Imported Files
-You will find the following structure imported into your Assets folder.
+### Arquivos Adicionados
+Você vai ver a seguinte estrutura adicionada na sua paste de Assets.
 ```text
 ./LitJson – 3rd party JSON parsing library
 ./Ouya/Docs/Readme.doc – You are reading this doc
@@ -49,21 +49,21 @@ You will find the following structure imported into your Assets folder.
 ./Plugins/Android/src/tv/ouya/demo/OuyaUnityApplication/R.java – Auto generated from custom layout
 ```
 
-### References
-- [Litjson](http://litjson.sourceforge.net): third party JSON parsing library for parsing in C#.
-- [Google-GSON](http://code.google.com/p/google-gson/): third party JSON parsing library for Java.
-- [Google-Guava](http://code.google.com/p/guava-libraries/): third party library for Google core.
+### Referências
+- [Litjson](http://litjson.sourceforge.net): Biblioteca de interpretação de JSON de terceiros para interpretação em C#.
+- [Google-GSON](http://code.google.com/p/google-gson/): Biblioteca de interpretação de JSON para Java.
+- [Google-Guava](http://code.google.com/p/guava-libraries/): Biblioteca de terceiros para Google core.
 
-### Example Scenes
-#### Scene ShowProducts
+### Cenas de Exemplo
+#### Cena ShowProducts
 
-Open the ./Ouya/Examples/Scenes/SceneShowProducts.unity example scene.
+Abra a cena de exemplo ./Ouya/Examples/Scenes/SceneShowProducts.unity .
 
 ![Products Scene](https://d31pno3ktcq63f.cloudfront.net/assets/unity/04_ProductsScene.jpg)
 
-All scenes start with a Main Camera. There’s a custom GameObject added for OuyaGameObject which handles taking messages from the OUYA SDK from Java to C#. The “ShowProduct” GameObject is a simple display script for displaying retrieved products and invoking purchases
+Todas as cenas começam com uma Main Camera. Tem um GameObject personalizado adicionado para o OuyaGameObject que manuseia o passamento de mensagens do OUYA SDK do Java para o C#. o “ShowProduct” GameObject é simplesmente um display script para mostrar os produtos obtidos e invocar compras.
 
-#### Scene ShowController
+#### Cena ShowController
 
 Open the ./Ouya/Examples/Scenes/SceneShowController.unity example scene.
 

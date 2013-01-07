@@ -1,7 +1,7 @@
 # OUYA Developer Documentation
 
-Here are the source files for the Developer Documentation for the OUYA Video Game Console.
+Aqui estão os arquivos fontes para a documentação de desenvolvedores para o Console de Video Game OUYA
 
-We render and display them on our [Developer Portal](https://devs.ouya.tv/developers) at https://devs.ouya.tv/developers/docs
+Nós apresentamos eles no nosso [Portal de Desenvolvedores](https://devs.ouya.tv/developers) em https://devs.ouya.tv/developers/docs
 
-Please help us make improvements. We encourage you to contribute content and corrections via pull requests.
+Por favor, nos ajude a fazer melhorias. Nós encorajamos você a contribuir e corrigir via pull requests.

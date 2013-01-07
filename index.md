@@ -1,7 +1,7 @@
-# Welcome
+# Bem Vindo
 
-*This is a pre-alpha preview. The ODK and documentation are works in progress. Help contribute at https://github.com/ouya/docs*
+*Esse é uma amostra pre-alpha. O ODK e a documentação ainda estão em andamento. Ajude a contribuir em https://github.com/ouya/docs*
 
-The OUYA Development Kit (ODK) is the software used to create games and applications for the OUYA console.
+O OUYA Development Kit (ODK) (Kit de desenvolvedores do OUYA) é o software usado para criar jogos e aplicativos para o console OUYA.
 
-For help and support, visit the developer forums at http://forums.ouya.tv, or email devsupport@ouya.tv.
+Para ajuda e suporte, visite o forum de desenvolvedores em http://forums.ouya.tv, ou email devsupport@ouya.tv.

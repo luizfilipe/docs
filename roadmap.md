@@ -1,8 +1,7 @@
-## ODK Roadmap
+## Roteiro do ODK
+**Nota importante:** Essa versão prévia do ODK está em andamento, e continua sobre desenvolvimento pesado.
+* **Segurança em pagamento** - Nós ainda estaos implementando esses recursos. Suas chamadas de teste para o nosso API de pagamentos irão funcionar, mas nós iremos adicionar novos recursos de segurança quando dinheiro de verdade aparecer.
+* **Launcher** - Esse ainda está nos primeiros estágios de desenvolvimento. Por exemplo, nós ainda estamos implementando a exibição das informações de um jogo como a descrição, screenshots, etc. Isso irá lançar quando nós lançarmos o serviço de descobrimento de jogos mostrado ao jogador.
+* **Controles** - O método usado para associar um jogar com um controle específico ainda está em andamento. Os LEDs do controle ainda não indicam o número do jogador.
 
-**Important Note:** This preview version of the ODK is a work in progress, and is still under heavy development.
-* **Payments security** - We are still implementing these features. Your test calls to our payments API will work, but we will add new security features when real-money payments go live.
-* **Launcher** - This is still in its earliest stages of development. For example, we are still implementing the display of game information like description, screenshots, etc. This will launch when we launch the gamer-facing discovery service.
-* **Controllers** - The method used to associate a player with a specific game controller is a work in progress. The controller LEDs do not yet indicate the player number.
-
-Please post your feedback on the [developer forums](http://forums.ouya.tv). We know there is a lot to complete, and we want your help in shaping it.
+Por favor, poste o seu feedback nos [fórums de desenvolvedores](http://forums.ouya.tv). N[os sabemos que ainda há muito para fazer, e nós queremos ajuda para definir tudo isso.

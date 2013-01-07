@@ -1,26 +1,27 @@
-## Interface Guidelines
+## Diretrizes de interface
 
-Games can use the OUYA controller buttons however they wish, but we recommend the mappings below for the **O**, **U**, **Y**, and **A** buttons. If you are running a stock Android application that is not OUYA-aware, this is also how the buttons will be mapped to the standard Android navigation buttons on the navigation bar for a typical device.
+Jogos pode usar os botões do controle do OUYA como eles quiserem, mas nós recomendamos o mapeamento abaixo para os botões **O**, **U**, **Y** e **A**. Se você está rodando um aplicativo padrão do android que não tem consentimento do OUYA, isso também é como os botões serão mapeados para os botões padrão de navegação do Android na barra de navegação de um dispositivo comum.
+
 ```text
-OUYA    Color    Default Function
-O       green    select
-U       blue     options (Android's menu function)
-Y       yellow   -
-A       red      back/cancel
+OUYA    Cor         Função padrão
+O       verde       selecionar
+U       azul        opções (função menu do Android)
+Y       amarelo     -
+A       vermelho    voltar/cancelar
 ```
 
-Please use the naming conventions below when referring to the controller buttons in help screens for your game:
+Por favor, use as convenções de nomeamento abaixo quando estiver se referindo aos botões do controle nas telas de ajuda do seu jogo:
 ```text
 O, U, Y, A
-System (the home button)
+System[Sistema, em português] (O botão home[casa])
 D-Pad 
-LS (the left joystick movement)
-L1 (the left bumper)
-L2 (the left trigger)
-L3 (the button function of pressing the left joystick straight down)
+LS (o movimento no joystick esquerdo)
+L1 (o botão de ombro da esquerda)
+L2 (o gatilho da esquerda)
+L3 (o botão da função de pressionar o joystick da esquerda pra baixo)
 RS
 R1
 R2
 R3
-Touchpad (not "Trackpad")
+Touchpad (não "Trackpad")
 ```
